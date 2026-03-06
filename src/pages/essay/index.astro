@@ -17,11 +17,11 @@ const prevHref = null;
 const nextHref = currentPage < totalPages ? withBase(`/essay/page/${currentPage + 1}/`) : null;
 ---
 
-<BaseLayout title="随笔" bodyClass="essay-page">
+<BaseLayout title="文章" bodyClass="essay-page">
   <div class="page-header page-header--essay page-header--with-search">
     <div class="page-heading">
-      <h1 class="page-title">随笔</h1>
-      <span class="page-subtitle">随笔与杂记，共 {visibleEssays.length} 篇 · <a href={withBase('/essay/rss.xml')}>RSS</a></span>
+      <h1 class="page-title">文章</h1>
+      <span class="page-subtitle">文章与杂记，共 {visibleEssays.length} 篇 · <a href={withBase('/essay/rss.xml')}>RSS</a></span>
     </div>
     <div class="page-actions">
       <div class="entry-search" data-entry-search data-index-url={withBase('/essay/index.json')}>
@@ -31,14 +31,14 @@ const nextHref = currentPage < totalPages ? withBase(`/essay/page/${currentPage 
             type="search"
             placeholder="搜索：标题 / 摘要 / 标签"
             autocomplete="off"
-            aria-label="搜索随笔"
+            aria-label="搜索文章"
           />
         </div>
         <button
           class="entry-search-toggle"
           data-entry-search-toggle
           type="button"
-          aria-label="搜索随笔"
+          aria-label="搜索文章"
           title="搜索"
           aria-expanded="false"
         >
@@ -64,7 +64,7 @@ const nextHref = currentPage < totalPages ? withBase(`/essay/page/${currentPage 
   </div>
 
   {showPagination && (
-    <nav class="pagination" aria-label="随笔分页">
+    <nav class="pagination" aria-label="文章分页">
       <div class="pagination__inner">
         {prevHref ? (
           <a class="pagination__link" rel="prev" href={prevHref}>上一页</a>

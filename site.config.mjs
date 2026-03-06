@@ -1,7 +1,7 @@
 const rawSiteUrl = (process.env.SITE_URL ?? '').trim();
 const siteUrl = rawSiteUrl ? rawSiteUrl.replace(/\/+$/, '') : '';
 const hasSiteUrl = siteUrl.length > 0;
-const fallbackSiteUrl = 'https://example.invalid';
+const fallbackSiteUrl = 'https://linbuhuang.com';
 
 if (!hasSiteUrl && process.env.NODE_ENV === 'production') {
   console.warn(
@@ -11,11 +11,11 @@ if (!hasSiteUrl && process.env.NODE_ENV === 'production') {
 
 export const site = {
   url: hasSiteUrl ? siteUrl : fallbackSiteUrl,
-  title: 'Astro Themes by Whono',
-  brandTitle: 'Whono',
-  author: 'Whono',
+  title: '林不慌',
+  brandTitle: '林不慌',
+  author: '林不慌',
   authorAvatar: 'author/avatar.webp',
-  description: '一个 Astro 主题的展示站：轻量、可维护、可复用。'
+  description: '资深 IT 民工林不慌的博客'
 };
 
 export const PAGE_SIZE_ARCHIVE = 12;
