@@ -7,6 +7,47 @@ import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkCallout from './src/plugins/remark-callout.mjs';
 import shikiToolbar from './src/plugins/shiki-toolbar.mjs';
 import { site, hasSiteUrl } from './site.config.mjs';
+import { defaultSchema } from 'rehype-sanitize';
+
+const customIframeSchema = {
+  ...defaultSchema,
+  tagNames: [...(defaultSchema.tagNames || []), 'iframe'],  // 显式允许 iframe 标签
+  attributes: {
+    ...defaultSchema.attributes,
+    iframe: [
+      // src 属性：只允许 https 协议 + 指定域名
+      [
+        'src',
+        (value) => {
+          try {
+            const url = new URL(value);
+            const allowedHosts = [
+              'open.spotify.com',
+              'www.youtube.com',
+              'youtube.com',
+              'www.youtube-nocookie.com'  // YouTube 隐私增强模式
+            ];
+            return (
+              url.protocol === 'https:' &&
+              allowedHosts.some(host => url.hostname === host || url.hostname.endsWith('.' + host))
+            );
+          } catch {
+            return false;
+          }
+        }
+      ],
+      'width',
+      'height',
+      'frameborder',
+      'allowfullscreen',
+      'allow',
+      'loading',
+      'title',
+      'style',  // 如果你用了 style="border-radius:12px"
+      'referrerpolicy'
+    ]
+  }
+};
 
 const getSchemaAttrs = (tagName) => {
   const attrs = defaultSchema.attributes?.[tagName];
@@ -116,7 +157,7 @@ export default defineConfig({
   },
   markdown: {
     remarkPlugins: [remarkDirective, remarkCallout],
-    rehypePlugins: [rehypeRaw, [rehypeSanitize, sanitizeSchema]],
+    rehypePlugins: [rehypeRaw, [rehypeSanitize, customIframeSchema]],
     shikiConfig: {
       themes: {
         light: 'github-light',
